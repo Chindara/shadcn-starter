@@ -1,4 +1,4 @@
-# 🚀 React Starter Template
+# 🚀 React + Shadcn Starter Template
 
 This is a modern React starter template built to help quickly kickstart new projects with a clean and scalable setup.
 
