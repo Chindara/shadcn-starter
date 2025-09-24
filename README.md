@@ -1,50 +1,39 @@
-# React + TypeScript + Vite
+# 🚀 React Starter Template
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a modern React starter template built to help quickly kickstart new projects with a clean and scalable setup.
 
-Currently, two official plugins are available:
+It provides a solid foundation for building web applications with best practices and commonly used tools preconfigured.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
+- Light/dark mode
+- Responsive
+- Charts
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
+- [Vite](https://vite.dev/) - Fast development server and build tool
+- [React](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/) – Strong typing for a reliable codebase
+- [Tailwind](https://tailwindcss.com/) - Utility-first styling for rapid UI development
+- [shadcn/ui](https://ui.shadcn.com/) - Prebuilt, accessible UI components
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 🚦 Getting Started
+#### Clone the project
+```bash
+git clone https://github.com/Chindara/shadcn-admin.git
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
+#### Go to the project directory
+```bash
+cd shadcn-admin
 ```
+
+#### Install dependencies
+```bash
+npm install
+```
+
+#### Start the server
+```bash
+npm run dev
+```
+
+Your app will be running at http://localhost:5173 (default Vite port).
