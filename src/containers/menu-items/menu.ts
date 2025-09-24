@@ -8,7 +8,7 @@ export const menuItems = {
 	},
 	teams: [
 		{
-			name: 'Shadcn Admin',
+			name: 'React + Shadcn Starter',
 			logo: GalleryVerticalEnd,
 			plan: 'Enterprise',
 		},
