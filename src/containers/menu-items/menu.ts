@@ -8,7 +8,7 @@ export const menuItems = {
 	},
 	teams: [
 		{
-			name: 'Acme Inc',
+			name: 'Shadcn Admin',
 			logo: GalleryVerticalEnd,
 			plan: 'Enterprise',
 		},
