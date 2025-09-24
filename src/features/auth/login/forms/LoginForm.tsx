@@ -3,10 +3,14 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { useNavigate } from 'react-router';
 
 export function LoginForm({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
-	const login = () => {
+	const navigate = useNavigate();
+	const login = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
 		sessionStorage.setItem('isLoggedIn', 'true');
+		navigate('/dashboard');
 	};
 
 	return (
