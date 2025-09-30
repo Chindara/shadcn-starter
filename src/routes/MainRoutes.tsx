@@ -5,6 +5,7 @@ import ErrorBoundary from './ErrorBoundary';
 import AuthGuard from '@/utils/route-guard/AuthGuard';
 
 const Dashboard = Loadable(lazy(() => import('@/pages/Dashboard')));
+const Users = Loadable(lazy(() => import('@/pages/Users')));
 
 const MainRoutes = {
 	path: '/',
@@ -21,6 +22,10 @@ const MainRoutes = {
 				{
 					path: 'dashboard',
 					element: <Dashboard />,
+				},
+				{
+					path: 'users',
+					element: <Users />,
 				},
 			],
 		},

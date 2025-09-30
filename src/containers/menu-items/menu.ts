@@ -25,14 +25,14 @@ export const menuItems = {
 	],
 	navMain: [
 		{
-			title: 'Playground',
+			title: 'Pages',
 			url: '#',
 			icon: SquareTerminal,
 			isActive: true,
 			items: [
 				{
-					title: 'History',
-					url: '#',
+					title: 'Users',
+					url: 'users',
 				},
 				{
 					title: 'Starred',
