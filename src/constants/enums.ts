@@ -3,5 +3,4 @@ export enum OPERATION_MODE {
 	Edit = 2,
 	View = 3,
 	Delete = 4,
-	Other = 5,
 }

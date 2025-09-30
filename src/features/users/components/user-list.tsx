@@ -6,18 +6,22 @@ import { UserService } from '@/services/UserService';
 import { useQuery } from '@tanstack/react-query';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
-import { CreditCard, Shield, UserCheck, Users } from 'lucide-react';
+import { CreditCard, Ellipsis, Eye, Pencil, Shield, UserCheck, Users } from 'lucide-react';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
+import PageTitle from '@/components/PageTitle';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { Button } from '@/components/ui/button';
+import { OPERATION_MODE } from '@/constants/enums';
 
-export const callTypes = new Map<UserStatus, string>([
-	['active', 'bg-teal-100/30 text-teal-900 dark:text-teal-200 border-teal-200'],
-	['inactive', 'bg-neutral-300/40 border-neutral-300'],
-	['invited', 'bg-sky-200/40 text-sky-900 dark:text-sky-100 border-sky-300'],
-	['suspended', 'bg-destructive/10 dark:bg-destructive/50 text-destructive dark:text-primary border-destructive/10'],
+const callTypes = new Map<UserStatus, string>([
+	['active', 'bg-green-100 text-green-800 dark:text-green-800 border-green-800'],
+	['inactive', 'bg-purple-100 text-purple-800 dark:text-purple-800 border-purple-800'],
+	['invited', 'bg-blue-100 text-blue-800 dark:text-blue-800 border-blue-800'],
+	['suspended', 'bg-red-100 text-red-800 dark:text-red-800 border-red-800'],
 ]);
 
-export const roles = [
+const roles = [
 	{
 		label: 'Superadmin',
 		value: 'superadmin',
@@ -44,7 +48,41 @@ const UserList = () => {
 	const [page, setPage] = useState(1);
 	const [limit, setLimit] = useState(10);
 
+	const handleKebab = (mode: number, recordId: string) => {
+		console.log(`Kebab menu opened for record ${recordId} in mode ${mode}`);
+	};
+
 	const columns: ColumnDef<User>[] = [
+		{
+			id: 'actions',
+			enableHiding: false,
+			enableSorting: false,
+			size: 40,
+			cell: ({ row }) => {
+				const userItem = row.original;
+
+				return (
+					<DropdownMenu>
+						<DropdownMenuTrigger asChild>
+							<Button variant='ghost' className='h-8 w-8 p-0'>
+								<span className='sr-only'>Open menu</span>
+								<Ellipsis />
+							</Button>
+						</DropdownMenuTrigger>
+						<DropdownMenuContent align='center'>
+							<DropdownMenuItem onClick={() => handleKebab(OPERATION_MODE.View, userItem.id!)}>
+								<Eye className='mr-2 h-4 w-4' />
+								View
+							</DropdownMenuItem>
+							<DropdownMenuItem onClick={() => handleKebab(OPERATION_MODE.Edit, userItem.id!)}>
+								<Pencil className='mr-2 h-4 w-4' />
+								Edit
+							</DropdownMenuItem>
+						</DropdownMenuContent>
+					</DropdownMenu>
+				);
+			},
+		},
 		{
 			id: 'select',
 			header: ({ table }) => (
@@ -116,7 +154,7 @@ const UserList = () => {
 		},
 	];
 
-	const { data: { items = [], pagination = { hasMore: false, page: 1, limit: 0, totalRecords: 0 } } = {}, isFetching } = useQuery({
+	const { data: { items = [], pagination = { hasMore: false, page: 1, limit: 0, totalRecords: 0 } } = {} } = useQuery({
 		queryKey: ['users', { page, limit }],
 		queryFn: () => UserService.getUsers(page, limit),
 		refetchOnWindowFocus: false,
@@ -125,6 +163,7 @@ const UserList = () => {
 
 	return (
 		<div>
+			<PageTitle title='Users' subTitle='Manage your users and their roles here.' />
 			<DataTable columns={columns} data={items} page={page} pageSize={limit} totalRows={pagination.totalRecords} onPageChange={setPage} onPageSizeChange={setLimit} />
 		</div>
 	);

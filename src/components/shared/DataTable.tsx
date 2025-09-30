@@ -66,10 +66,9 @@ export function DataTable<TData, TValue>({
 	});
 
 	return (
-		<div className={clsx('space-y-4', className)}>
+		<div className={clsx('space-y-2', className)}>
 			{/* 🔹 Toolbar (column visibility toggle) */}
 			<div className='flex items-center justify-between'>
-				<h2 className='text-lg font-semibold'>Table</h2>
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
 						<Button variant='outline' size='sm' className='ml-auto'>
