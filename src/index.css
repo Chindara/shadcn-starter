@@ -25,7 +25,7 @@
 		--border: 214.3 31.8% 91.4%;
 		--input: 214.3 31.8% 91.4%;
 		--ring: 221.2 83.2% 53.3%;
-		--radius: 0.65rem;
+		--radius: 0.5rem;
 		--chart-1: 12 76% 61%;
 		--chart-2: 173 58% 39%;
 		--chart-3: 197 37% 24%;
@@ -61,15 +61,6 @@
 	}
 }
 
-@layer base {
-	* {
-		@apply border-border;
-	}
-	body {
-		@apply bg-background text-foreground;
-	}
-}
-
 /* Chart Colors */
 @layer base {
 	:root {
@@ -87,51 +78,4 @@
 		--chart-4: oklch(54.6% 0.245 262.881);
 		--chart-5: oklch(54.1% 0.281 293.009);
 	}
-}
-
-/* Grid Background Variables */
-@layer base {
-	:root {
-		--columns: 12;
-		--row-height: 75px;
-		--widget-gap: 4px; /* Gap between widgets - should match WIDGET_GAP in React */
-		--cell-gap: 2px; /* Small gap within cells for visual separation */
-		--cell-color: oklch(0.87 0 0); /* Red color for cells */
-		--cell-opacity: 0.1; /* Opacity for cell coloring in light mode */
-	}
-
-	.dark {
-		--cell-color: oklch(0.37 0 0); /* Darker red for dark mode */
-		--cell-opacity: 0.15; /* Slightly higher opacity in dark mode */
-	}
-}
-
-/* Main grid background with widget gaps */
-.grid-background {
-	width: 100%;
-	height: 100%;
-	background-color: var(--background);
-
-	/* Create grid cells with gaps between widgets */
-	background-image: 
-		/* Horizontal lines (rows) */
-		repeating-linear-gradient(
-			0deg,
-			transparent 0,
-			transparent var(--cell-gap),
-			oklch(from var(--cell-color) l c h / var(--cell-opacity)) var(--cell-gap),
-			oklch(from var(--cell-color) l c h / var(--cell-opacity)) var(--row-height),
-			transparent var(--row-height),
-			transparent calc(var(--row-height) + var(--widget-gap))
-		),
-		/* Vertical lines (columns) */
-			repeating-linear-gradient(
-				90deg,
-				transparent 0,
-				transparent var(--cell-gap),
-				oklch(from var(--cell-color) l c h / var(--cell-opacity)) var(--cell-gap),
-				oklch(from var(--cell-color) l c h / var(--cell-opacity)) calc((100% - (var(--columns) - 1) * var(--widget-gap)) / var(--columns)),
-				transparent calc((100% - (var(--columns) - 1) * var(--widget-gap)) / var(--columns)),
-				transparent calc((100% - (var(--columns) - 1) * var(--widget-gap)) / var(--columns) + var(--widget-gap))
-			);
 }
