@@ -7,10 +7,10 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import { NavMain } from "@/components/nav-main";
 import { NavUser } from "@/components/nav-user";
 import { menuItems } from "./menu";
 import { TeamSwitcher } from "./TeamSwitcher";
+import { NavGroup } from "./nav-group";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -22,7 +22,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <TeamSwitcher teams={menuItems.teams} />
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={menuItems.navMain} />
+        {menuItems.navGroups.map((props) => (
+          <NavGroup
+            key={props.title}
+            title={props.title}
+            items={props.items}
+          />
+        ))}
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={menuItems.user} />
