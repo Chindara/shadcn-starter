@@ -16,6 +16,7 @@ import {
   ServerOff,
   Settings,
   ShieldCheck,
+  Sparkles,
   UserCog,
   Users,
   UserX,
@@ -31,7 +32,7 @@ export const menuItems = {
   teams: [
     {
       name: "Shadcn Starter",
-      logo: Command,
+      logo: Sparkles,
       plan: "Vite + ShadcnUI",
     },
     {
@@ -86,19 +87,15 @@ export const menuItems = {
           items: [
             {
               title: "Sign In",
-              url: "/sign-in",
-            },
-            {
-              title: "Sign In (2 Col)",
-              url: "/sign-in-2",
+              url: "/signIn",
             },
             {
               title: "Sign Up",
-              url: "/sign-up",
+              url: "/signUp",
             },
             {
               title: "Forgot Password",
-              url: "/forgot-password",
+              url: "/forgotPassword",
             },
             {
               title: "OTP",
