@@ -18,7 +18,7 @@ export function SignupForm({
       className={cn("flex flex-col gap-6", className)}
       {...props}
     >
-      <FieldGroup>
+      <FieldGroup className="gap-4">
         <div className="flex flex-col items-center gap-1 text-center">
           <h1 className="text-2xl font-bold">Create your account</h1>
           <p className="text-muted-foreground text-sm text-balance">
