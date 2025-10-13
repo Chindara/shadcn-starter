@@ -1,21 +1,20 @@
-import './App.css';
-import { RouterProvider } from 'react-router';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import router from '@/routes';
-import { Toaster } from '@/components/ui/sonner';
-import { ThemeProvider } from '@/contexts/ThemeProvider';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { RouterProvider, createRouter } from "@tanstack/react-router";
+import { routeTree } from "./routeTree.gen";
+import "./index.css";
 
-const queryClient = new QueryClient();
+// Create the router instance
+const router = createRouter({ routeTree });
 
-function App() {
-	return (
-		<QueryClientProvider client={queryClient}>
-			<ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
-				<Toaster />
-				<RouterProvider router={router} />
-			</ThemeProvider>
-		</QueryClientProvider>
-	);
+declare module "@tanstack/react-router" {
+  interface Register {
+    router: typeof router;
+  }
 }
 
-export default App;
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
+);

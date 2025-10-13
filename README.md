@@ -1,39 +1,73 @@
-# 🚀 React + Shadcn Starter Template
+# React + TypeScript + Vite
 
-This is a modern React starter template built to help quickly kickstart new projects with a clean and scalable setup.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-It provides a solid foundation for building web applications with best practices and commonly used tools preconfigured.
+Currently, two official plugins are available:
 
-## ✨ Features
-- Light/dark mode
-- Responsive
-- Charts
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## 🛠️ Tech Stack
-- [Vite](https://vite.dev/) - Fast development server and build tool
-- [React](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/) – Strong typing for a reliable codebase
-- [Tailwind](https://tailwindcss.com/) - Utility-first styling for rapid UI development
-- [shadcn/ui](https://ui.shadcn.com/) - Prebuilt, accessible UI components
+## React Compiler
 
-## 🚦 Getting Started
-#### Clone the project
-```bash
-git clone https://github.com/Chindara/shadcn-admin.git
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
+
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
 
-#### Go to the project directory
-```bash
-cd shadcn-admin
-```
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-#### Install dependencies
-```bash
-npm install
-```
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
-#### Start the server
-```bash
-npm run dev
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
 ```
-
-Your app will be running at http://localhost:5173 (default Vite port).
