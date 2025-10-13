@@ -11,7 +11,6 @@ import {
   Lock,
   MessagesSquare,
   Monitor,
-  Package,
   Palette,
   ServerOff,
   Settings,
@@ -59,11 +58,6 @@ export const menuItems = {
           title: "Tasks",
           url: "/tasks",
           icon: ListTodo,
-        },
-        {
-          title: "Apps",
-          url: "/apps",
-          icon: Package,
         },
         {
           title: "Chats",

@@ -1,7 +1,7 @@
-import { LoginForm } from "@/components/login-form";
+import { SignupForm } from "@/components/signup-form";
 import { Sparkles } from "lucide-react";
 
-export default function SignInPage() {
+export default function SignUpPage() {
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
       <div className="bg-muted relative hidden lg:block">
@@ -19,7 +19,7 @@ export default function SignInPage() {
           <h1 className="text-primary text-2xl font-bold">Shadcn Starter</h1>
         </div>
         <div className="w-full max-w-sm border p-8 rounded-lg">
-          <LoginForm />
+          <SignupForm />
         </div>
       </div>
     </div>

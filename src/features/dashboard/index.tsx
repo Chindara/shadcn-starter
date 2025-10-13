@@ -1,3 +1,3 @@
 export default function Dashboard() {
-  return <div>Dashboard</div>;
+  return <h2 className="text-2xl font-bold">Dashboard Page</h2>;
 }
