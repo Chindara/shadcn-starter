@@ -59,12 +59,12 @@ export const menuItems = {
           url: "/tasks",
           icon: ListTodo,
         },
-        {
-          title: "Chats",
-          url: "/chats",
-          badge: "3",
-          icon: MessagesSquare,
-        },
+        // {
+        //   title: "Chats",
+        //   url: "/chats",
+        //   badge: "3",
+        //   icon: MessagesSquare,
+        // },
         {
           title: "Users",
           url: "/users",
@@ -87,47 +87,47 @@ export const menuItems = {
               title: "Sign Up",
               url: "/signUp",
             },
-            {
-              title: "Forgot Password",
-              url: "/forgotPassword",
-            },
-            {
-              title: "OTP",
-              url: "/otp",
-            },
+            // {
+            //   title: "Forgot Password",
+            //   url: "/forgotPassword",
+            // },
+            // {
+            //   title: "OTP",
+            //   url: "/otp",
+            // },
           ],
         },
-        {
-          title: "Errors",
-          icon: Bug,
-          items: [
-            {
-              title: "Unauthorized",
-              url: "/errors/unauthorized",
-              icon: Lock,
-            },
-            {
-              title: "Forbidden",
-              url: "/errors/forbidden",
-              icon: UserX,
-            },
-            {
-              title: "Not Found",
-              url: "/errors/not-found",
-              icon: FileX,
-            },
-            {
-              title: "Internal Server Error",
-              url: "/errors/internal-server-error",
-              icon: ServerOff,
-            },
-            {
-              title: "Maintenance Error",
-              url: "/errors/maintenance-error",
-              icon: Construction,
-            },
-          ],
-        },
+        // {
+        //   title: "Errors",
+        //   icon: Bug,
+        //   items: [
+        //     {
+        //       title: "Unauthorized",
+        //       url: "/errors/unauthorized",
+        //       icon: Lock,
+        //     },
+        //     {
+        //       title: "Forbidden",
+        //       url: "/errors/forbidden",
+        //       icon: UserX,
+        //     },
+        //     {
+        //       title: "Not Found",
+        //       url: "/errors/not-found",
+        //       icon: FileX,
+        //     },
+        //     {
+        //       title: "Internal Server Error",
+        //       url: "/errors/internal-server-error",
+        //       icon: ServerOff,
+        //     },
+        //     {
+        //       title: "Maintenance Error",
+        //       url: "/errors/maintenance-error",
+        //       icon: Construction,
+        //     },
+        //   ],
+        // },
       ],
     },
     {

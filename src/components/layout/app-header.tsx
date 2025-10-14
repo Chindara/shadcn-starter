@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
+import { ModeToggle } from "../mode-toggle";
 
 export function AppHeader() {
   return (
@@ -30,7 +31,9 @@ export function AppHeader() {
         </div>
 
         {/* Right side of the header */}
-        <div>{/* <ModeToggle /> */}</div>
+        <div>
+          <ModeToggle />
+        </div>
       </header>
     </>
   );

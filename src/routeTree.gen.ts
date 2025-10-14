@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
+import { Route as AuthenticatedUsersRouteImport } from './routes/_authenticated/users'
 import { Route as authSignUpRouteImport } from './routes/(auth)/signUp'
 import { Route as authSignInRouteImport } from './routes/(auth)/signIn'
 import { Route as AuthenticatedTasksIndexRouteImport } from './routes/_authenticated/tasks/index'
@@ -28,6 +29,11 @@ const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
 const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedUsersRoute = AuthenticatedUsersRouteImport.update({
+  id: '/users',
+  path: '/users',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const authSignUpRoute = authSignUpRouteImport.update({
@@ -50,6 +56,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/signIn': typeof authSignInRoute
   '/signUp': typeof authSignUpRoute
+  '/users': typeof AuthenticatedUsersRoute
   '/': typeof AuthenticatedIndexRoute
   '/tasks': typeof AuthenticatedTasksIndexRoute
 }
@@ -57,6 +64,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/signIn': typeof authSignInRoute
   '/signUp': typeof authSignUpRoute
+  '/users': typeof AuthenticatedUsersRoute
   '/': typeof AuthenticatedIndexRoute
   '/tasks': typeof AuthenticatedTasksIndexRoute
 }
@@ -66,20 +74,22 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/(auth)/signIn': typeof authSignInRoute
   '/(auth)/signUp': typeof authSignUpRoute
+  '/_authenticated/users': typeof AuthenticatedUsersRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/tasks/': typeof AuthenticatedTasksIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/about' | '/signIn' | '/signUp' | '/' | '/tasks'
+  fullPaths: '/about' | '/signIn' | '/signUp' | '/users' | '/' | '/tasks'
   fileRoutesByTo: FileRoutesByTo
-  to: '/about' | '/signIn' | '/signUp' | '/' | '/tasks'
+  to: '/about' | '/signIn' | '/signUp' | '/users' | '/' | '/tasks'
   id:
     | '__root__'
     | '/_authenticated'
     | '/about'
     | '/(auth)/signIn'
     | '/(auth)/signUp'
+    | '/_authenticated/users'
     | '/_authenticated/'
     | '/_authenticated/tasks/'
   fileRoutesById: FileRoutesById
@@ -114,6 +124,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/users': {
+      id: '/_authenticated/users'
+      path: '/users'
+      fullPath: '/users'
+      preLoaderRoute: typeof AuthenticatedUsersRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/(auth)/signUp': {
       id: '/(auth)/signUp'
       path: '/signUp'
@@ -139,11 +156,13 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedUsersRoute: typeof AuthenticatedUsersRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedTasksIndexRoute: typeof AuthenticatedTasksIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedUsersRoute: AuthenticatedUsersRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedTasksIndexRoute: AuthenticatedTasksIndexRoute,
 }
