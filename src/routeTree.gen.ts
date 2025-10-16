@@ -8,174 +8,174 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as AboutRouteImport } from './routes/about'
-import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
-import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
-import { Route as AuthenticatedUsersRouteImport } from './routes/_authenticated/users'
-import { Route as authSignUpRouteImport } from './routes/(auth)/signUp'
-import { Route as authSignInRouteImport } from './routes/(auth)/signIn'
-import { Route as AuthenticatedTasksIndexRouteImport } from './routes/_authenticated/tasks/index'
+import { Route as rootRouteImport } from "./routes/__root";
+import { Route as AboutRouteImport } from "./routes/about";
+import { Route as AuthenticatedRouteRouteImport } from "./routes/_authenticated/route";
+import { Route as AuthenticatedIndexRouteImport } from "./routes/_authenticated/index";
+import { Route as AuthenticatedUsersRouteImport } from "./routes/_authenticated/users";
+import { Route as authSignUpRouteImport } from "./routes/(auth)/signUp";
+import { Route as authSignInRouteImport } from "./routes/(auth)/signIn";
+import { Route as AuthenticatedTasksIndexRouteImport } from "./routes/_authenticated/tasks";
 
 const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
+  id: "/about",
+  path: "/about",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
-  id: '/_authenticated',
+  id: "/_authenticated",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
+} as any);
 const AuthenticatedUsersRoute = AuthenticatedUsersRouteImport.update({
-  id: '/users',
-  path: '/users',
+  id: "/users",
+  path: "/users",
   getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
+} as any);
 const authSignUpRoute = authSignUpRouteImport.update({
-  id: '/(auth)/signUp',
-  path: '/signUp',
+  id: "/(auth)/signUp",
+  path: "/signUp",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const authSignInRoute = authSignInRouteImport.update({
-  id: '/(auth)/signIn',
-  path: '/signIn',
+  id: "/(auth)/signIn",
+  path: "/signIn",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const AuthenticatedTasksIndexRoute = AuthenticatedTasksIndexRouteImport.update({
-  id: '/tasks/',
-  path: '/tasks/',
+  id: "/tasks/",
+  path: "/tasks/",
   getParentRoute: () => AuthenticatedRouteRoute,
-} as any)
+} as any);
 
 export interface FileRoutesByFullPath {
-  '/about': typeof AboutRoute
-  '/signIn': typeof authSignInRoute
-  '/signUp': typeof authSignUpRoute
-  '/users': typeof AuthenticatedUsersRoute
-  '/': typeof AuthenticatedIndexRoute
-  '/tasks': typeof AuthenticatedTasksIndexRoute
+  "/about": typeof AboutRoute;
+  "/signIn": typeof authSignInRoute;
+  "/signUp": typeof authSignUpRoute;
+  "/users": typeof AuthenticatedUsersRoute;
+  "/": typeof AuthenticatedIndexRoute;
+  "/tasks": typeof AuthenticatedTasksIndexRoute;
 }
 export interface FileRoutesByTo {
-  '/about': typeof AboutRoute
-  '/signIn': typeof authSignInRoute
-  '/signUp': typeof authSignUpRoute
-  '/users': typeof AuthenticatedUsersRoute
-  '/': typeof AuthenticatedIndexRoute
-  '/tasks': typeof AuthenticatedTasksIndexRoute
+  "/about": typeof AboutRoute;
+  "/signIn": typeof authSignInRoute;
+  "/signUp": typeof authSignUpRoute;
+  "/users": typeof AuthenticatedUsersRoute;
+  "/": typeof AuthenticatedIndexRoute;
+  "/tasks": typeof AuthenticatedTasksIndexRoute;
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport
-  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
-  '/about': typeof AboutRoute
-  '/(auth)/signIn': typeof authSignInRoute
-  '/(auth)/signUp': typeof authSignUpRoute
-  '/_authenticated/users': typeof AuthenticatedUsersRoute
-  '/_authenticated/': typeof AuthenticatedIndexRoute
-  '/_authenticated/tasks/': typeof AuthenticatedTasksIndexRoute
+  __root__: typeof rootRouteImport;
+  "/_authenticated": typeof AuthenticatedRouteRouteWithChildren;
+  "/about": typeof AboutRoute;
+  "/(auth)/signIn": typeof authSignInRoute;
+  "/(auth)/signUp": typeof authSignUpRoute;
+  "/_authenticated/users": typeof AuthenticatedUsersRoute;
+  "/_authenticated/": typeof AuthenticatedIndexRoute;
+  "/_authenticated/tasks/": typeof AuthenticatedTasksIndexRoute;
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/about' | '/signIn' | '/signUp' | '/users' | '/' | '/tasks'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/about' | '/signIn' | '/signUp' | '/users' | '/' | '/tasks'
+  fileRoutesByFullPath: FileRoutesByFullPath;
+  fullPaths: "/about" | "/signIn" | "/signUp" | "/users" | "/" | "/tasks";
+  fileRoutesByTo: FileRoutesByTo;
+  to: "/about" | "/signIn" | "/signUp" | "/users" | "/" | "/tasks";
   id:
-    | '__root__'
-    | '/_authenticated'
-    | '/about'
-    | '/(auth)/signIn'
-    | '/(auth)/signUp'
-    | '/_authenticated/users'
-    | '/_authenticated/'
-    | '/_authenticated/tasks/'
-  fileRoutesById: FileRoutesById
+    | "__root__"
+    | "/_authenticated"
+    | "/about"
+    | "/(auth)/signIn"
+    | "/(auth)/signUp"
+    | "/_authenticated/users"
+    | "/_authenticated/"
+    | "/_authenticated/tasks/";
+  fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
-  AboutRoute: typeof AboutRoute
-  authSignInRoute: typeof authSignInRoute
-  authSignUpRoute: typeof authSignUpRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren;
+  AboutRoute: typeof AboutRoute;
+  authSignInRoute: typeof authSignInRoute;
+  authSignUpRoute: typeof authSignUpRoute;
 }
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated': {
-      id: '/_authenticated'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof AuthenticatedRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/': {
-      id: '/_authenticated/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof AuthenticatedIndexRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/users': {
-      id: '/_authenticated/users'
-      path: '/users'
-      fullPath: '/users'
-      preLoaderRoute: typeof AuthenticatedUsersRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/(auth)/signUp': {
-      id: '/(auth)/signUp'
-      path: '/signUp'
-      fullPath: '/signUp'
-      preLoaderRoute: typeof authSignUpRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/(auth)/signIn': {
-      id: '/(auth)/signIn'
-      path: '/signIn'
-      fullPath: '/signIn'
-      preLoaderRoute: typeof authSignInRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_authenticated/tasks/': {
-      id: '/_authenticated/tasks/'
-      path: '/tasks'
-      fullPath: '/tasks'
-      preLoaderRoute: typeof AuthenticatedTasksIndexRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
+    "/about": {
+      id: "/about";
+      path: "/about";
+      fullPath: "/about";
+      preLoaderRoute: typeof AboutRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/_authenticated": {
+      id: "/_authenticated";
+      path: "";
+      fullPath: "";
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/_authenticated/": {
+      id: "/_authenticated/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof AuthenticatedIndexRouteImport;
+      parentRoute: typeof AuthenticatedRouteRoute;
+    };
+    "/_authenticated/users": {
+      id: "/_authenticated/users";
+      path: "/users";
+      fullPath: "/users";
+      preLoaderRoute: typeof AuthenticatedUsersRouteImport;
+      parentRoute: typeof AuthenticatedRouteRoute;
+    };
+    "/(auth)/signUp": {
+      id: "/(auth)/signUp";
+      path: "/signUp";
+      fullPath: "/signUp";
+      preLoaderRoute: typeof authSignUpRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/(auth)/signIn": {
+      id: "/(auth)/signIn";
+      path: "/signIn";
+      fullPath: "/signIn";
+      preLoaderRoute: typeof authSignInRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/_authenticated/tasks/": {
+      id: "/_authenticated/tasks/";
+      path: "/tasks";
+      fullPath: "/tasks";
+      preLoaderRoute: typeof AuthenticatedTasksIndexRouteImport;
+      parentRoute: typeof AuthenticatedRouteRoute;
+    };
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
-  AuthenticatedUsersRoute: typeof AuthenticatedUsersRoute
-  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
-  AuthenticatedTasksIndexRoute: typeof AuthenticatedTasksIndexRoute
+  AuthenticatedUsersRoute: typeof AuthenticatedUsersRoute;
+  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute;
+  AuthenticatedTasksIndexRoute: typeof AuthenticatedTasksIndexRoute;
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedUsersRoute: AuthenticatedUsersRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedTasksIndexRoute: AuthenticatedTasksIndexRoute,
-}
+};
 
 const AuthenticatedRouteRouteWithChildren =
-  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren);
 
 const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
   authSignInRoute: authSignInRoute,
   authSignUpRoute: authSignUpRoute,
-}
+};
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
