@@ -1,4 +1,4 @@
-# 🚀 React + Shadcn Starter Template
+# 🚀 Shadcn Starter Template
 
 This is a modern React starter template built to help quickly kickstart new projects with a clean and scalable setup.
 
@@ -14,16 +14,17 @@ It provides a solid foundation for building web applications with best practices
 - [React](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/) – Strong typing for a reliable codebase
 - [Tailwind](https://tailwindcss.com/) - Utility-first styling for rapid UI development
 - [shadcn/ui](https://ui.shadcn.com/) - Prebuilt, accessible UI components
+- [TanStack Router](https://tanstack.com/router/latest) - Type-safe Routing
 
 ## 🚦 Getting Started
 #### Clone the project
 ```bash
-git clone https://github.com/Chindara/shadcn-admin.git
+git clone https://github.com/Chindara/shadcn-starter.git
 ```
 
 #### Go to the project directory
 ```bash
-cd shadcn-admin
+cd shadcn-starter
 ```
 
 #### Install dependencies
