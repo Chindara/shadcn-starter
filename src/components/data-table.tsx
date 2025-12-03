@@ -76,6 +76,11 @@ export function DataTable<TData, TValue>({
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
 
+  // Parent pages are 1-based (API uses 1-based pages). Convert safely to zero-based index
+  // for react-table internal state. If parent passes 0 (from older behavior), clamp to 1.
+  const safePage = Math.max(1, page);
+  const pageIndex = safePage - 1;
+
   const table = useReactTable({
     data,
     columns: columns,
@@ -92,7 +97,7 @@ export function DataTable<TData, TValue>({
     onColumnVisibilityChange: setColumnVisibility,
     state: {
       pagination: {
-        pageIndex: page,
+        pageIndex,
         pageSize,
       },
       sorting,
@@ -215,7 +220,7 @@ export function DataTable<TData, TValue>({
 
       {/* 🔹 Pagination */}
       <PaginationFooter
-        page={page}
+        page={safePage}
         pageSize={pageSize}
         pageCount={pageCount}
         pageSizeOptions={pageSizeOptions}
@@ -251,7 +256,7 @@ function PaginationFooter({
           value={`${pageSize}`}
           onValueChange={(value) => {
             onPageSizeChange(Number(value));
-            onPageChange(0);
+            onPageChange(1);
           }}
         >
           <SelectTrigger className="h-8 w-[70px]">
@@ -272,33 +277,33 @@ function PaginationFooter({
 
       <div className="flex items-center space-x-6 lg:space-x-8">
         <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-          Page {page + 1} of {pageCount}
+          Page {page} of {pageCount}
         </div>
         <div className="flex items-center space-x-2">
           <PaginationButton
-            onClick={() => onPageChange(0)}
-            disabled={page === 0}
+            onClick={() => onPageChange(1)}
+            disabled={page === 1}
             label="First page"
           >
             <ChevronsLeft className="h-4 w-4" />
           </PaginationButton>
           <PaginationButton
             onClick={() => onPageChange(page - 1)}
-            disabled={page === 0}
+            disabled={page === 1}
             label="Previous page"
           >
             <ChevronLeft className="h-4 w-4" />
           </PaginationButton>
           <PaginationButton
             onClick={() => onPageChange(page + 1)}
-            disabled={page >= pageCount - 1}
+            disabled={page >= pageCount}
             label="Next page"
           >
             <ChevronRight className="h-4 w-4" />
           </PaginationButton>
           <PaginationButton
-            onClick={() => onPageChange(pageCount - 1)}
-            disabled={page >= pageCount - 1}
+            onClick={() => onPageChange(pageCount)}
+            disabled={page >= pageCount}
             label="Last page"
           >
             <ChevronsRight className="h-4 w-4" />
