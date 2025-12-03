@@ -107,38 +107,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className={clsx("space-y-2", className)}>
-      {/* 🔹 Toolbar (column visibility toggle) */}
-      <div className="flex items-center justify-between">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="outline"
-              size="sm"
-              className="ml-auto"
-            >
-              <Settings2 className="h-4 w-4" />
-              Columns
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Toggle columns</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            {table
-              .getAllLeafColumns()
-              .filter((col) => col.getCanHide())
-              .map((column) => (
-                <DropdownMenuCheckboxItem
-                  key={column.id}
-                  className="capitalize"
-                  checked={column.getIsVisible()}
-                  onCheckedChange={(value) => column.toggleVisibility(!!value)}
-                >
-                  {column.id}
-                </DropdownMenuCheckboxItem>
-              ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
+      {/* top toolbar intentionally left empty - column toggle moved to pagination */}
 
       {/* 🔹 Table */}
       <div className="rounded-md border overflow-x-auto">
@@ -219,14 +188,56 @@ export function DataTable<TData, TValue>({
       </div>
 
       {/* 🔹 Pagination */}
-      <PaginationFooter
-        page={safePage}
-        pageSize={pageSize}
-        pageCount={pageCount}
-        pageSizeOptions={pageSizeOptions}
-        onPageChange={onPageChange}
-        onPageSizeChange={onPageSizeChange}
-      />
+      {/* Build a column toggle dropdown and pass it to the footer so it appears next to pagination */}
+      {/** Column toggle JSX built here so it has access to `table` */}
+      {/** Only render items that can be hidden */}
+      {(() => {
+        const columnToggle = (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="outline"
+                size="sm"
+                className="ml-auto"
+              >
+                <Settings2 className="h-4 w-4" />
+                View
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Toggle columns</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              {table
+                .getAllLeafColumns()
+                .filter((col) => col.getCanHide())
+                .map((column) => (
+                  <DropdownMenuCheckboxItem
+                    key={column.id}
+                    className="capitalize"
+                    checked={column.getIsVisible()}
+                    onCheckedChange={(value) =>
+                      column.toggleVisibility(!!value)
+                    }
+                  >
+                    {column.id}
+                  </DropdownMenuCheckboxItem>
+                ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        );
+
+        return (
+          <PaginationFooter
+            page={safePage}
+            pageSize={pageSize}
+            pageCount={pageCount}
+            pageSizeOptions={pageSizeOptions}
+            onPageChange={onPageChange}
+            onPageSizeChange={onPageSizeChange}
+            columnToggle={columnToggle}
+          />
+        );
+      })()}
     </div>
   );
 }
@@ -238,6 +249,7 @@ interface PaginationFooterProps {
   pageSizeOptions: number[];
   onPageChange: (page: number) => void;
   onPageSizeChange: (pageSize: number) => void;
+  columnToggle?: React.ReactNode;
 }
 
 function PaginationFooter({
@@ -247,36 +259,43 @@ function PaginationFooter({
   pageSizeOptions,
   onPageChange,
   onPageSizeChange,
+  columnToggle,
 }: PaginationFooterProps) {
   return (
     <div className="flex items-center justify-between px-2">
-      <div className="flex items-center space-x-2">
-        <p className="text-sm font-medium">Rows per page</p>
-        <Select
-          value={`${pageSize}`}
-          onValueChange={(value) => {
-            onPageSizeChange(Number(value));
-            onPageChange(1);
-          }}
-        >
-          <SelectTrigger className="h-8 w-[70px]">
-            <SelectValue placeholder={pageSize} />
-          </SelectTrigger>
-          <SelectContent side="top">
-            {pageSizeOptions.map((size) => (
-              <SelectItem
-                key={size}
-                value={`${size}`}
-              >
-                {size}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+      <div className="flex items-center space-x-4">
+        {columnToggle && (
+          <div className="flex items-center">{columnToggle}</div>
+        )}
       </div>
 
       <div className="flex items-center space-x-6 lg:space-x-8">
-        <div className="flex w-[100px] items-center justify-center text-sm font-medium">
+        <div className="flex items-center space-x-2">
+          <p className="text-sm font-medium">Rows per page</p>
+          <Select
+            value={`${pageSize}`}
+            onValueChange={(value) => {
+              onPageSizeChange(Number(value));
+              onPageChange(1);
+            }}
+          >
+            <SelectTrigger className="h-8 w-[75px]">
+              <SelectValue placeholder={pageSize} />
+            </SelectTrigger>
+            <SelectContent side="top">
+              {pageSizeOptions.map((size) => (
+                <SelectItem
+                  key={size}
+                  value={`${size}`}
+                  className="p-0"
+                >
+                  {size}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="flex items-center justify-end text-sm font-medium">
           Page {page} of {pageCount}
         </div>
         <div className="flex items-center space-x-2">
@@ -328,7 +347,7 @@ function PaginationButton({
   return (
     <Button
       variant="outline"
-      className="h-8 w-8 p-0"
+      className="h-9 w-9 p-0"
       onClick={onClick}
       disabled={disabled}
       aria-label={label}
