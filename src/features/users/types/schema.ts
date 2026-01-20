@@ -35,3 +35,29 @@ const userSchema = z.object({
 export type User = z.infer<typeof userSchema>;
 
 export const userListSchema = z.array(userSchema);
+
+// Filter constants
+export const DEPARTMENT_OPTIONS = [
+  "Administration",
+  "Sales",
+  "Finance",
+  "Human Resources",
+] as const;
+
+export const ROLE_OPTIONS = ["superadmin", "admin", "manager", "cashier"] as const;
+
+export const STATUS_OPTIONS = ["active", "inactive", "invited", "suspended"] as const;
+
+// Filter types
+/**
+ * User list filter configuration
+ * @property departments - Array of department names to filter by (OR logic within group)
+ * @property roles - Array of role names to filter by (OR logic within group)
+ * @property statuses - Array of status values to filter by (OR logic within group)
+ * @note AND logic is applied between filter groups
+ */
+export interface UserFilters {
+  departments: string[];
+  roles: string[];
+  statuses: string[];
+}

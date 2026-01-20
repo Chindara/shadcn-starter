@@ -1,6 +1,6 @@
 import type { ColumnDef } from "@tanstack/react-table";
-import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useNavigate, useSearch } from "@tanstack/react-router";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import {
@@ -21,10 +21,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import type { User, UserStatus } from "../types/schema";
+import type { User, UserStatus, UserFilters } from "../types/schema";
 import { DataTable } from "@/components/data-table";
 import { OPERATION_MODE } from "@/constants/enums";
 import { UserService } from "@/services/userService";
+import { UserListFilters } from "./user-list-filters";
 
 const callTypes = new Map<UserStatus, string>([
   [
@@ -63,11 +64,60 @@ const roles = [
 ] as const;
 
 const UserList = () => {
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
+  const navigate = useNavigate({ from: "/users" });
+  const searchParams = useSearch({ from: "/_authenticated/users" });
+
+  // Parse filters from URL search params
+  const filters: UserFilters = {
+    departments: searchParams.departments?.split(",").filter(Boolean) || [],
+    roles: searchParams.roles?.split(",").filter(Boolean) || [],
+    statuses: searchParams.statuses?.split(",").filter(Boolean) || [],
+  };
+
+  const page = searchParams.page || 1;
+  const limit = searchParams.limit || 10;
+
+  const hasActiveFilters =
+    filters.departments.length > 0 ||
+    filters.roles.length > 0 ||
+    filters.statuses.length > 0;
 
   const handleKebab = (mode: number, recordId: string) => {
     console.log(`Kebab menu opened for record ${recordId} in mode ${mode}`);
+  };
+
+  // Handle filter changes - update URL params and reset to page 1
+  const handleFiltersChange = (newFilters: UserFilters) => {
+    navigate({
+      search: {
+        ...searchParams,
+        departments: newFilters.departments.length > 0 ? newFilters.departments.join(",") : undefined,
+        roles: newFilters.roles.length > 0 ? newFilters.roles.join(",") : undefined,
+        statuses: newFilters.statuses.length > 0 ? newFilters.statuses.join(",") : undefined,
+        page: 1, // Reset to first page when filters change
+      },
+    });
+  };
+
+  // Handle page changes
+  const handlePageChange = (newPage: number) => {
+    navigate({
+      search: {
+        ...searchParams,
+        page: newPage,
+      },
+    });
+  };
+
+  // Handle page size changes
+  const handlePageSizeChange = (newLimit: number) => {
+    navigate({
+      search: {
+        ...searchParams,
+        limit: newLimit,
+        page: 1, // Reset to first page when page size changes
+      },
+    });
   };
 
   const columns: ColumnDef<User>[] = [
@@ -230,8 +280,8 @@ const UserList = () => {
       pagination = { hasMore: false, page: 1, limit: 0, totalRecords: 0 },
     } = {},
   } = useQuery({
-    queryKey: ["users", { page, limit }],
-    queryFn: () => UserService.getUsers(page, limit),
+    queryKey: ["users", { page, limit, ...filters }],
+    queryFn: () => UserService.getUsers(page, limit, filters),
     refetchOnWindowFocus: false,
     enabled: true,
   });
@@ -240,14 +290,20 @@ const UserList = () => {
 
   return (
     <div>
+      <UserListFilters filters={filters} onFiltersChange={handleFiltersChange} />
       <DataTable
         columns={columns}
         data={items}
         page={page}
         pageSize={limit}
         totalRows={pagination.totalRecords}
-        onPageChange={setPage}
-        onPageSizeChange={setLimit}
+        onPageChange={handlePageChange}
+        onPageSizeChange={handlePageSizeChange}
+        emptyMessage={
+          hasActiveFilters
+            ? "No users match your filters. Try clearing filters."
+            : "No users found."
+        }
       />
     </div>
   );
