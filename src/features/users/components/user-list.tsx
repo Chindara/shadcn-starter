@@ -91,9 +91,16 @@ const UserList = () => {
     navigate({
       search: {
         ...searchParams,
-        departments: newFilters.departments.length > 0 ? newFilters.departments.join(",") : undefined,
-        roles: newFilters.roles.length > 0 ? newFilters.roles.join(",") : undefined,
-        statuses: newFilters.statuses.length > 0 ? newFilters.statuses.join(",") : undefined,
+        departments:
+          newFilters.departments.length > 0
+            ? newFilters.departments.join(",")
+            : undefined,
+        roles:
+          newFilters.roles.length > 0 ? newFilters.roles.join(",") : undefined,
+        statuses:
+          newFilters.statuses.length > 0
+            ? newFilters.statuses.join(",")
+            : undefined,
         page: 1, // Reset to first page when filters change
       },
     });
@@ -290,7 +297,10 @@ const UserList = () => {
 
   return (
     <div>
-      <UserListFilters filters={filters} onFiltersChange={handleFiltersChange} />
+      <UserListFilters
+        filters={filters}
+        onFiltersChange={handleFiltersChange}
+      />
       <DataTable
         columns={columns}
         data={items}

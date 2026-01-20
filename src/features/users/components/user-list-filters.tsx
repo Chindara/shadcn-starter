@@ -81,7 +81,7 @@ export function UserListFilters({
   return (
     <div
       className={cn(
-        "flex flex-col md:flex-row gap-3 p-4 border-b",
+        "flex flex-col md:flex-row gap-2 py-2",
         hasActiveFilters && "bg-muted/30",
       )}
       role="group"

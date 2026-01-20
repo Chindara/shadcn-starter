@@ -125,7 +125,7 @@ export function DataTable<TData, TValue>({
                         className={clsx(
                           "flex items-center gap-2",
                           header.column.getCanSort() &&
-                            "cursor-pointer select-none"
+                            "cursor-pointer select-none",
                         )}
                         onClick={
                           header.column.getCanSort()
@@ -135,7 +135,7 @@ export function DataTable<TData, TValue>({
                       >
                         {flexRender(
                           header.column.columnDef.header,
-                          header.getContext()
+                          header.getContext(),
                         )}
                         {header.column.getCanSort() && (
                           <ChevronsUpDown className="h-3.5 w-3.5 opacity-50" />
@@ -167,7 +167,7 @@ export function DataTable<TData, TValue>({
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </TableCell>
                   ))}
@@ -262,7 +262,7 @@ function PaginationFooter({
   columnToggle,
 }: PaginationFooterProps) {
   return (
-    <div className="flex items-center justify-between px-2">
+    <div className="flex items-center justify-between">
       <div className="flex items-center space-x-4">
         {columnToggle && (
           <div className="flex items-center">{columnToggle}</div>
