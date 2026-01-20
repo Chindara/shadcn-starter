@@ -106,26 +106,6 @@ const UserList = () => {
     });
   };
 
-  // Handle page changes
-  const handlePageChange = (newPage: number) => {
-    navigate({
-      search: {
-        ...searchParams,
-        page: newPage,
-      },
-    });
-  };
-
-  // Handle page size changes
-  const handlePageSizeChange = (newLimit: number) => {
-    navigate({
-      search: {
-        ...searchParams,
-        limit: newLimit,
-        page: 1, // Reset to first page when page size changes
-      },
-    });
-  };
 
   const columns: ColumnDef<User>[] = [
     {
@@ -307,8 +287,8 @@ const UserList = () => {
         page={page}
         pageSize={limit}
         totalRows={pagination.totalRecords}
-        onPageChange={handlePageChange}
-        onPageSizeChange={handlePageSizeChange}
+        searchParams={searchParams}
+        navigate={navigate}
         emptyMessage={
           hasActiveFilters
             ? "No users match your filters. Try clearing filters."

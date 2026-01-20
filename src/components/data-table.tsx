@@ -48,8 +48,8 @@ interface DataTableProps<TData, TValue> {
   page: number;
   pageSize: number;
   totalRows: number;
-  onPageChange: (page: number) => void;
-  onPageSizeChange: (pageSize: number) => void;
+  searchParams: any;
+  navigate: (options: { search: any }) => void;
   onSortingChange?: (sorting: SortingState) => void; // for server-side sorting
   pageSizeOptions?: number[];
   loading?: boolean;
@@ -63,8 +63,8 @@ export function DataTable<TData, TValue>({
   page,
   pageSize,
   totalRows,
-  onPageChange,
-  onPageSizeChange,
+  searchParams,
+  navigate,
   onSortingChange,
   pageSizeOptions = [10, 25, 50, 100],
   loading = false,
@@ -72,6 +72,27 @@ export function DataTable<TData, TValue>({
   emptyMessage = "No results found.",
 }: DataTableProps<TData, TValue>) {
   const pageCount = Math.ceil(totalRows / pageSize);
+
+  // Handle page changes - navigate to new page
+  const handlePageChange = (newPage: number) => {
+    navigate({
+      search: {
+        ...searchParams,
+        page: newPage,
+      },
+    });
+  };
+
+  // Handle page size changes - always navigate to page 1
+  const handlePageSizeChange = (newLimit: number) => {
+    navigate({
+      search: {
+        ...searchParams,
+        limit: newLimit,
+        page: 1,
+      },
+    });
+  };
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
@@ -232,8 +253,8 @@ export function DataTable<TData, TValue>({
             pageSize={pageSize}
             pageCount={pageCount}
             pageSizeOptions={pageSizeOptions}
-            onPageChange={onPageChange}
-            onPageSizeChange={onPageSizeChange}
+            onPageChange={handlePageChange}
+            onPageSizeChange={handlePageSizeChange}
             columnToggle={columnToggle}
           />
         );
@@ -275,8 +296,8 @@ function PaginationFooter({
           <Select
             value={`${pageSize}`}
             onValueChange={(value) => {
+              // Always navigate to page 1 when page size changes
               onPageSizeChange(Number(value));
-              onPageChange(1);
             }}
           >
             <SelectTrigger className="h-8 w-[75px]">
@@ -287,7 +308,7 @@ function PaginationFooter({
                 <SelectItem
                   key={size}
                   value={`${size}`}
-                  className="p-0"
+                  className="py-0 px-2 h-8"
                 >
                   {size}
                 </SelectItem>
