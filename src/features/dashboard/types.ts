@@ -64,7 +64,7 @@ export const TAB_CONFIG = {
 
 export const GRID_CONFIG = {
   cols: 12,
-  rowHeight: 100,
-  margin: [16, 16] as [number, number],
-  containerPadding: [16, 16] as [number, number],
+  rowHeight: 75,
+  margin: [8, 8] as [number, number],
+  containerPadding: [0, 0] as [number, number],
 };

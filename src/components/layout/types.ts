@@ -6,39 +6,34 @@ type User = {
   avatar: string;
 };
 
-type Team = {
-  name: string;
-  logo: React.ElementType;
-  plan: string;
-};
-
-type BaseNavItem = {
+type NavLink = {
   title: string;
-  badge?: string;
+  url: LinkProps["to"] | (string & {});
   icon?: React.ElementType;
+  badge?: string;
 };
 
-type NavLink = BaseNavItem & {
+type NavSectionBase = {
+  title: string;
+  icon: React.ElementType;
+};
+
+// A rail section either opens the panel with its items or links directly.
+type NavSectionGroup = NavSectionBase & {
+  items: NavLink[];
+  url?: never;
+};
+
+type NavSectionLink = NavSectionBase & {
   url: LinkProps["to"] | (string & {});
   items?: never;
 };
 
-type NavCollapsible = BaseNavItem & {
-  items: (BaseNavItem & { url: LinkProps["to"] | (string & {}) })[];
-  url?: never;
-};
-
-type NavItem = NavCollapsible | NavLink;
-
-type NavGroup = {
-  title: string;
-  items: NavItem[];
-};
+type NavSection = NavSectionGroup | NavSectionLink;
 
 type SidebarData = {
   user: User;
-  teams: Team[];
-  navGroups: NavGroup[];
+  sections: NavSection[];
 };
 
-export type { SidebarData, NavGroup, NavItem, NavCollapsible, NavLink };
+export type { SidebarData, NavSection, NavLink };

@@ -124,3 +124,6 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Main grid background with widget gaps */
+

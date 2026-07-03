@@ -1,6 +1,6 @@
 export function AppFooter() {
   return (
-    <footer className="sticky bottom-0 flex shrink-0 items-center justify-between border-t bg-background p-4">
+    <footer className="sticky bottom-0 z-50 flex h-(--footer-height) w-full shrink-0 items-center justify-between border-t bg-background p-1">
       {/* Left side of the footer */}
       <div className="flex items-center gap-2 px-4">
         <div className="text-sm text-muted-foreground">
